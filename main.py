@@ -57,12 +57,10 @@ while True:
     
     while True:
         try:
-            track = input("Enter participant track: ")
+            track = input("Enter participant track: ").title()
             if track == "":
                 print("Track cannot be blank!")
                 continue
-            elif track.isdigit():
-                print("Track cannot be a number!")
             else:
                 participant_dict["Track"] = track  
                 break
@@ -71,11 +69,17 @@ while True:
             break
     
     choice = input("Do you want to add another information\n1. No\n2. Yes\nEnter: ")
+
+    try:
+        file_ops.save_participant(path, participant_dict)
+    except Exception as e:
+        print("Error occurred as", e)
+
     if choice == "1":
-        print("Participant details have been saved successfully.\n")
+        print("Participants details have been saved successfully.\n")
         break   
     else:
+        print("\n", "Participant Information Saver".center(60, "-"))
         continue
-        
-file_ops.save_participant(path, participant_dict)
+
 file_ops.load_participant(path)
